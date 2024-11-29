@@ -1,204 +1,208 @@
+
 graph ER {
-    fontname = "Helvetica,Arial,sans-serif";
-    label = "Drug Database ERD";
-    fontsize = 24;
-    layout = neato;
-    overlap = "scale";
-    node [fontname = "Helvetica,Arial,sans-serif";];
-    edge [fontname = "Helvetica,Arial,sans-serif";];
+  fontname = "Helvetica,Arial,sans-serif";
+  label = "Drug Database ERD";
+  fontsize = 24;
+  layout = neato;
+  overlap = "scale";
+  node [fontname = "Helvetica,Arial,sans-serif";];
+  edge [fontname = "Helvetica,Arial,sans-serif";];
+
+  subgraph relationships {
+    node [shape = diamond; fillcolor = "#7a7af3"; style = "rounded,filled"; color = black;];
+
     
-    subgraph relationships {
-        node [shape = diamond; fillcolor = "#7a7af3"; style = "rounded,filled"; color = black;];
-    }
-    
-    subgraph entities {
-        node [shape = box; fillcolor = "#43ce43"; style = "filled"; color = black;];
-        
-        AspNetRoles;
-        AspNetUsers;
-        Files;
-        AspNetRoleClaims;
-        AspNetUserClaims;
-        AspNetUserLogins;
-        AspNetUserRoles;
-        AspNetUserTokens;
-        UserData;
-        Posts;
-        PostDislikers;
-        PostLikers;
-    }
-    
-    subgraph attributes {
-        node [shape = ellipse; fillcolor = "#ff3d3d"; style = filled; color = black;];
-        
-        AspNetRoles__Id [label = "Id";];
-        AspNetRoles__Name [label = "Name";];
-        AspNetRoles__NormalizedName [label = "NormalizedName";];
-        AspNetRoles__ConcurrencyStamp [label = "ConcurrencyStamp";];
-        
-        AspNetUsers__Id [label = "Id";];
-        AspNetUsers__UserDataId [label = "UserDataId";];
-        AspNetUsers__UserName [label = "UserName";];
-        AspNetUsers__NormalizedUserName [label = "NormalizedUserName";];
-        AspNetUsers__Email [label = "Email";];
-        AspNetUsers__NormalizedEmail [label = "NormalizedEmail";];
-        AspNetUsers__EmailConfirmed [label = "EmailConfirmed";];
-        AspNetUsers__PasswordHash [label = "PasswordHash";];
-        AspNetUsers__SecurityStamp [label = "SecurityStamp";];
-        AspNetUsers__ConcurrencyStamp [label = "ConcurrencyStamp";];
-        AspNetUsers__PhoneNumber [label = "PhoneNumber";];
-        AspNetUsers__PhoneNumberConfirmed [label = "PhoneNumberConfirmed";];
-        AspNetUsers__TwoFactorEnabled [label = "TwoFactorEnabled";];
-        AspNetUsers__LockoutEnd [label = "LockoutEnd";];
-        AspNetUsers__LockoutEnabled [label = "LockoutEnabled";];
-        AspNetUsers__AccessFailedCount [label = "AccessFailedCount";];
-        
-        Files__Id [label = "Id";];
-        Files__FileName [label = "FileName";];
-        Files__ContentType [label = "ContentType";];
-        Files__Size [label = "Size";];
-        Files__FileData [label = "FileData";];
-        Files__UploadDate [label = "UploadDate";];
-        
-        AspNetRoleClaims__Id [label = "Id";];
-        AspNetRoleClaims__RoleId [label = "RoleId";];
-        AspNetRoleClaims__ClaimType [label = "ClaimType";];
-        AspNetRoleClaims__ClaimValue [label = "ClaimValue";];
-        
-        AspNetUserClaims__Id [label = "Id";];
-        AspNetUserClaims__UserId [label = "UserId";];
-        AspNetUserClaims__ClaimType [label = "ClaimType";];
-        AspNetUserClaims__ClaimValue [label = "ClaimValue";];
-        
-        AspNetUserLogins__LoginProvider [label = "LoginProvider";];
-        AspNetUserLogins__ProviderKey [label = "ProviderKey";];
-        AspNetUserLogins__ProviderDisplayName [label = "ProviderDisplayName";];
-        AspNetUserLogins__UserId [label = "UserId";];
-        
-        AspNetUserRoles__UserId [label = "UserId";];
-        AspNetUserRoles__RoleId [label = "RoleId";];
-        
-        AspNetUserTokens__UserId [label = "UserId";];
-        AspNetUserTokens__LoginProvider [label = "LoginProvider";];
-        AspNetUserTokens__Name [label = "Name";];
-        AspNetUserTokens__Value [label = "Value";];
-        
-        UserData__Id [label = "Id";];
-        UserData__Bio [label = "Bio";];
-        UserData__UserId [label = "UserId";];
-        UserData__PictureId [label = "PictureId";];
-        UserData__CoverId [label = "CoverId";];
-        
-        Posts__Id [label = "Id";];
-        Posts__Title [label = "Title";];
-        Posts__Content [label = "Content";];
-        Posts__Date [label = "Date";];
-        Posts__PosterId [label = "PosterId";];
-        Posts__ParentPostId [label = "ParentPostId";];
-        Posts__AttachmentId [label = "AttachmentId";];
-        Posts__UserDataId [label = "UserDataId";];
-        
-        PostDislikers__DislikedPostsId [label = "DislikedPostsId";];
-        PostDislikers__DislikersId [label = "DislikersId";];
-        
-        PostLikers__LikedPostsId [label = "LikedPostsId";];
-        PostLikers__LikersId [label = "LikersId";];
-    }
-    
-    subgraph AspNetRoles {
-        AspNetRoles -- AspNetRoles__Id;
-        AspNetRoles -- AspNetRoles__Name;
-        AspNetRoles -- AspNetRoles__NormalizedName;
-        AspNetRoles -- AspNetRoles__ConcurrencyStamp;
-    }
-    
-    subgraph AspNetUsers {
-        AspNetUsers -- AspNetUsers__Id;
-        AspNetUsers -- AspNetUsers__UserDataId;
-        AspNetUsers -- AspNetUsers__UserName;
-        AspNetUsers -- AspNetUsers__NormalizedUserName;
-        AspNetUsers -- AspNetUsers__Email;
-        AspNetUsers -- AspNetUsers__NormalizedEmail;
-        AspNetUsers -- AspNetUsers__EmailConfirmed;
-        AspNetUsers -- AspNetUsers__PasswordHash;
-        AspNetUsers -- AspNetUsers__SecurityStamp;
-        AspNetUsers -- AspNetUsers__ConcurrencyStamp;
-        AspNetUsers -- AspNetUsers__PhoneNumber;
-        AspNetUsers -- AspNetUsers__PhoneNumberConfirmed;
-        AspNetUsers -- AspNetUsers__TwoFactorEnabled;
-        AspNetUsers -- AspNetUsers__LockoutEnd;
-        AspNetUsers -- AspNetUsers__LockoutEnabled;
-        AspNetUsers -- AspNetUsers__AccessFailedCount;
-    }
-    
-    subgraph Files {
-        Files -- Files__Id;
-        Files -- Files__FileName;
-        Files -- Files__ContentType;
-        Files -- Files__Size;
-        Files -- Files__FileData;
-        Files -- Files__UploadDate;
-    }
-    
-    subgraph AspNetRoleClaims {
-        AspNetRoleClaims -- AspNetRoleClaims__Id;
-        AspNetRoleClaims -- AspNetRoleClaims__RoleId;
-        AspNetRoleClaims -- AspNetRoleClaims__ClaimType;
-        AspNetRoleClaims -- AspNetRoleClaims__ClaimValue;
-    }
-    
-    subgraph AspNetUserClaims {
-        AspNetUserClaims -- AspNetUserClaims__Id;
-        AspNetUserClaims -- AspNetUserClaims__UserId;
-        AspNetUserClaims -- AspNetUserClaims__ClaimType;
-        AspNetUserClaims -- AspNetUserClaims__ClaimValue;
-    }
-    
-    subgraph AspNetUserLogins {
-        AspNetUserLogins -- AspNetUserLogins__LoginProvider;
-        AspNetUserLogins -- AspNetUserLogins__ProviderKey;
-        AspNetUserLogins -- AspNetUserLogins__ProviderDisplayName;
-        AspNetUserLogins -- AspNetUserLogins__UserId;
-    }
-    
-    subgraph AspNetUserRoles {
-        AspNetUserRoles -- AspNetUserRoles__UserId;
-        AspNetUserRoles -- AspNetUserRoles__RoleId;
-    }
-    
-    subgraph AspNetUserTokens {
-        AspNetUserTokens -- AspNetUserTokens__UserId;
-        AspNetUserTokens -- AspNetUserTokens__LoginProvider;
-        AspNetUserTokens -- AspNetUserTokens__Name;
-        AspNetUserTokens -- AspNetUserTokens__Value;
-    }
-    
-    subgraph UserData {
-        UserData -- UserData__Id;
-        UserData -- UserData__Bio;
-        UserData -- UserData__UserId;
-        UserData -- UserData__PictureId;
-        UserData -- UserData__CoverId;
-    }
-    
-    subgraph Posts {
-        Posts -- Posts__Id;
-        Posts -- Posts__Title;
-        Posts -- Posts__Content;
-        Posts -- Posts__Date;
-        Posts -- Posts__PosterId;
-        Posts -- Posts__ParentPostId;
-        Posts -- Posts__AttachmentId;
-        Posts -- Posts__UserDataId;
-    }
-    
-    subgraph PostDislikers {
-        PostDislikers -- PostDislikers__DislikedPostsId;
-        PostDislikers -- PostDislikers__DislikersId;
-    }
-    
-    subgraph PostLikers {
-        PostLikers -- PostLikers__LikedPostsId;
-        PostLikers -- PostLikers__LikersId;
-    }
+  }
+
+  subgraph entities {
+    node [shape = box; fillcolor = "#43ce43"; style = "filled"; color = black;];
+
+    AspNetRoles;
+    AspNetUsers;
+    Files;
+    AspNetRoleClaims;
+    AspNetUserClaims;
+    AspNetUserLogins;
+    AspNetUserRoles;
+    AspNetUserTokens;
+    UserData;
+    Posts;
+    PostDislikers;
+    PostLikers;
+  }
+
+  subgraph attributes {
+    node [shape = ellipse; fillcolor = "#ff3d3d"; style = filled; color = black;];
+
+    AspNetRoles__Id [label = <<U>Id</U>>;];
+    AspNetRoles__Name [label = "Name";];
+    AspNetRoles__NormalizedName [label = "NormalizedName";];
+    AspNetRoles__ConcurrencyStamp [label = "ConcurrencyStamp";];
+
+    AspNetUsers__Id [label = <<U>Id</U>>;];
+    AspNetUsers__UserDataId [label = "UserDataId";];
+    AspNetUsers__UserName [label = "UserName";];
+    AspNetUsers__NormalizedUserName [label = "NormalizedUserName";];
+    AspNetUsers__Email [label = "Email";];
+    AspNetUsers__NormalizedEmail [label = "NormalizedEmail";];
+    AspNetUsers__EmailConfirmed [label = "EmailConfirmed";];
+    AspNetUsers__PasswordHash [label = "PasswordHash";];
+    AspNetUsers__SecurityStamp [label = "SecurityStamp";];
+    AspNetUsers__ConcurrencyStamp [label = "ConcurrencyStamp";];
+    AspNetUsers__PhoneNumber [label = "PhoneNumber";];
+    AspNetUsers__PhoneNumberConfirmed [label = "PhoneNumberConfirmed";];
+    AspNetUsers__TwoFactorEnabled [label = "TwoFactorEnabled";];
+    AspNetUsers__LockoutEnd [label = "LockoutEnd";];
+    AspNetUsers__LockoutEnabled [label = "LockoutEnabled";];
+    AspNetUsers__AccessFailedCount [label = "AccessFailedCount";];
+
+    Files__Id [label = <<U>Id</U>>;];
+    Files__FileName [label = "FileName";];
+    Files__ContentType [label = "ContentType";];
+    Files__Size [label = "Size";];
+    Files__FileData [label = "FileData";];
+    Files__UploadDate [label = "UploadDate";];
+
+    AspNetRoleClaims__Id [label = <<U>Id</U>>;];
+    AspNetRoleClaims__RoleId [label = "RoleId";];
+    AspNetRoleClaims__ClaimType [label = "ClaimType";];
+    AspNetRoleClaims__ClaimValue [label = "ClaimValue";];
+
+    AspNetUserClaims__Id [label = <<U>Id</U>>;];
+    AspNetUserClaims__UserId [label = "UserId";];
+    AspNetUserClaims__ClaimType [label = "ClaimType";];
+    AspNetUserClaims__ClaimValue [label = "ClaimValue";];
+
+    AspNetUserLogins__LoginProvider [label = <<U>LoginProvider</U>>;];
+    AspNetUserLogins__ProviderKey [label = <<U>ProviderKey</U>>;];
+    AspNetUserLogins__ProviderDisplayName [label = "ProviderDisplayName";];
+    AspNetUserLogins__UserId [label = "UserId";];
+
+    AspNetUserRoles__UserId [label = <<U>UserId</U>>;];
+    AspNetUserRoles__RoleId [label = <<U>RoleId</U>>;];
+
+    AspNetUserTokens__UserId [label = <<U>UserId</U>>;];
+    AspNetUserTokens__LoginProvider [label = <<U>LoginProvider</U>>;];
+    AspNetUserTokens__Name [label = <<U>Name</U>>;];
+    AspNetUserTokens__Value [label = "Value";];
+
+    UserData__Id [label = <<U>Id</U>>;];
+    UserData__Bio [label = "Bio";];
+    UserData__UserId [label = "UserId";];
+    UserData__PictureId [label = "PictureId";];
+    UserData__CoverId [label = "CoverId";];
+
+    Posts__Id [label = <<U>Id</U>>;];
+    Posts__Title [label = "Title";];
+    Posts__Content [label = "Content";];
+    Posts__Date [label = "Date";];
+    Posts__PosterId [label = "PosterId";];
+    Posts__ParentPostId [label = "ParentPostId";];
+    Posts__AttachmentId [label = "AttachmentId";];
+    Posts__UserDataId [label = "UserDataId";];
+
+    PostDislikers__DislikedPostsId [label = <<U>DislikedPostsId</U>>;];
+    PostDislikers__DislikersId [label = <<U>DislikersId</U>>;];
+
+    PostLikers__LikedPostsId [label = <<U>LikedPostsId</U>>;];
+    PostLikers__LikersId [label = <<U>LikersId</U>>;];
+  }
+
+  subgraph AspNetRoles {
+    AspNetRoles -- AspNetRoles__Id;
+    AspNetRoles -- AspNetRoles__Name;
+    AspNetRoles -- AspNetRoles__NormalizedName;
+    AspNetRoles -- AspNetRoles__ConcurrencyStamp;
+  }
+
+  subgraph AspNetUsers {
+    AspNetUsers -- AspNetUsers__Id;
+    AspNetUsers -- AspNetUsers__UserDataId;
+    AspNetUsers -- AspNetUsers__UserName;
+    AspNetUsers -- AspNetUsers__NormalizedUserName;
+    AspNetUsers -- AspNetUsers__Email;
+    AspNetUsers -- AspNetUsers__NormalizedEmail;
+    AspNetUsers -- AspNetUsers__EmailConfirmed;
+    AspNetUsers -- AspNetUsers__PasswordHash;
+    AspNetUsers -- AspNetUsers__SecurityStamp;
+    AspNetUsers -- AspNetUsers__ConcurrencyStamp;
+    AspNetUsers -- AspNetUsers__PhoneNumber;
+    AspNetUsers -- AspNetUsers__PhoneNumberConfirmed;
+    AspNetUsers -- AspNetUsers__TwoFactorEnabled;
+    AspNetUsers -- AspNetUsers__LockoutEnd;
+    AspNetUsers -- AspNetUsers__LockoutEnabled;
+    AspNetUsers -- AspNetUsers__AccessFailedCount;
+  }
+
+  subgraph Files {
+    Files -- Files__Id;
+    Files -- Files__FileName;
+    Files -- Files__ContentType;
+    Files -- Files__Size;
+    Files -- Files__FileData;
+    Files -- Files__UploadDate;
+  }
+
+  subgraph AspNetRoleClaims {
+    AspNetRoleClaims -- AspNetRoleClaims__Id;
+    AspNetRoleClaims -- AspNetRoleClaims__RoleId;
+    AspNetRoleClaims -- AspNetRoleClaims__ClaimType;
+    AspNetRoleClaims -- AspNetRoleClaims__ClaimValue;
+  }
+
+  subgraph AspNetUserClaims {
+    AspNetUserClaims -- AspNetUserClaims__Id;
+    AspNetUserClaims -- AspNetUserClaims__UserId;
+    AspNetUserClaims -- AspNetUserClaims__ClaimType;
+    AspNetUserClaims -- AspNetUserClaims__ClaimValue;
+  }
+
+  subgraph AspNetUserLogins {
+    AspNetUserLogins -- AspNetUserLogins__LoginProvider;
+    AspNetUserLogins -- AspNetUserLogins__ProviderKey;
+    AspNetUserLogins -- AspNetUserLogins__ProviderDisplayName;
+    AspNetUserLogins -- AspNetUserLogins__UserId;
+  }
+
+  subgraph AspNetUserRoles {
+    AspNetUserRoles -- AspNetUserRoles__UserId;
+    AspNetUserRoles -- AspNetUserRoles__RoleId;
+  }
+
+  subgraph AspNetUserTokens {
+    AspNetUserTokens -- AspNetUserTokens__UserId;
+    AspNetUserTokens -- AspNetUserTokens__LoginProvider;
+    AspNetUserTokens -- AspNetUserTokens__Name;
+    AspNetUserTokens -- AspNetUserTokens__Value;
+  }
+
+  subgraph UserData {
+    UserData -- UserData__Id;
+    UserData -- UserData__Bio;
+    UserData -- UserData__UserId;
+    UserData -- UserData__PictureId;
+    UserData -- UserData__CoverId;
+  }
+
+  subgraph Posts {
+    Posts -- Posts__Id;
+    Posts -- Posts__Title;
+    Posts -- Posts__Content;
+    Posts -- Posts__Date;
+    Posts -- Posts__PosterId;
+    Posts -- Posts__ParentPostId;
+    Posts -- Posts__AttachmentId;
+    Posts -- Posts__UserDataId;
+  }
+
+  subgraph PostDislikers {
+    PostDislikers -- PostDislikers__DislikedPostsId;
+    PostDislikers -- PostDislikers__DislikersId;
+  }
+
+  subgraph PostLikers {
+    PostLikers -- PostLikers__LikedPostsId;
+    PostLikers -- PostLikers__LikersId;
+  }
 }
+    

@@ -47,23 +47,51 @@ def get_data(path):
     return tables
 
 
+def get_constraint(r):
+    r = r.copy()
+    while len(r) and r[0].upper().find("KEY") == -1:
+        r.pop(0)
+    if r[0].upper() == "KEY":
+        r[0] = "f"
+        while len(r) and r[1].upper().find("REFERENCES") == -1:
+            r.pop(1)
+        r.pop(1)
+        r = r[:2] + [any(map(lambda x: x.upper() == "CASCADE", r))]
+    else:
+        r[0] = "p"
+    return r
+
+
 def get_attributes(attr):
     result = dict()
     for k, v in attr.items():
         at = []
+        co = []
         for r in v:
             if r[0].upper() != "CONSTRAINT":
                 at.append(r[0])
-        result[k] = at
+            else:
+                co.append(get_constraint(r))
+        result[k] = at, co
     return result
 
 
 def get_s(result):
     def add_a():
+        def get_pri_text(a, const):
+            if a in list(filter(lambda x: x[0] == "p", const))[0][1:]:
+                return f"<<U>{a}</U>>"
+            return f'"{a}"'
+
         return "\n\n".join(
             [
-                "\n".join([f'    {table}__{a} [label = "{a}";];' for a in atter])
-                for table, atter in result.items()
+                "\n".join(
+                    [
+                        f"    {table}__{a} [label = {get_pri_text(a, const)};];"
+                        for a in atter
+                    ]
+                )
+                for table, (atter, const) in result.items()
             ]
         )
 
@@ -75,7 +103,7 @@ def get_s(result):
 
     def add_c():
         r = []
-        for k, v in result.items():
+        for k, (v, co) in result.items():
             r.append(
                 f'  subgraph {k} {{{"".join([f"\n    {k} -- {k}__{i};" for i in v])}\n  }}'
             )
