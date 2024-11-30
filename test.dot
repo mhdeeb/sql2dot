@@ -1,7 +1,7 @@
 
 graph ER {
   fontname = "Helvetica,Arial,sans-serif";
-  label = "Drug Database ERD";
+  label = "FBMINI ERD";
   fontsize = 24;
   layout = neato;
   overlap = "scale";
@@ -11,7 +11,23 @@ graph ER {
   subgraph relationships {
     node [shape = diamond; fillcolor = "#7a7af3"; style = "rounded,filled"; color = black;];
 
-    
+    AspNetRoleClaims__AspNetRoles;
+    AspNetUserClaims__AspNetUsers;
+    AspNetUserLogins__AspNetUsers;
+    AspNetUserRoles__AspNetRoles;
+    AspNetUserRoles__AspNetUsers;
+    AspNetUserTokens__AspNetUsers;
+    UserData__AspNetUsers;
+    UserData__Files;
+    UserData__Files;
+    Posts__AspNetUsers;
+    Posts__Files;
+    Posts__Posts;
+    Posts__UserData;
+    PostDislikers__AspNetUsers;
+    PostDislikers__Posts;
+    PostLikers__AspNetUsers;
+    PostLikers__Posts;
   }
 
   subgraph entities {
@@ -203,6 +219,43 @@ graph ER {
   subgraph PostLikers {
     PostLikers -- PostLikers__LikedPostsId;
     PostLikers -- PostLikers__LikersId;
+  }
+
+  subgraph connections {
+    AspNetRoleClaims -- AspNetRoleClaims__AspNetRoles;
+    AspNetRoles -- AspNetRoleClaims__AspNetRoles;
+    AspNetUserClaims -- AspNetUserClaims__AspNetUsers;
+    AspNetUsers -- AspNetUserClaims__AspNetUsers;
+    AspNetUserLogins -- AspNetUserLogins__AspNetUsers;
+    AspNetUsers -- AspNetUserLogins__AspNetUsers;
+    AspNetUserRoles -- AspNetUserRoles__AspNetRoles;
+    AspNetRoles -- AspNetUserRoles__AspNetRoles;
+    AspNetUserRoles -- AspNetUserRoles__AspNetUsers;
+    AspNetUsers -- AspNetUserRoles__AspNetUsers;
+    AspNetUserTokens -- AspNetUserTokens__AspNetUsers;
+    AspNetUsers -- AspNetUserTokens__AspNetUsers;
+    UserData -- UserData__AspNetUsers;
+    AspNetUsers -- UserData__AspNetUsers;
+    UserData -- UserData__Files;
+    Files -- UserData__Files;
+    UserData -- UserData__Files;
+    Files -- UserData__Files;
+    Posts -- Posts__AspNetUsers;
+    AspNetUsers -- Posts__AspNetUsers;
+    Posts -- Posts__Files;
+    Files -- Posts__Files;
+    Posts -- Posts__Posts;
+    Posts -- Posts__Posts;
+    Posts -- Posts__UserData;
+    UserData -- Posts__UserData;
+    PostDislikers -- PostDislikers__AspNetUsers;
+    AspNetUsers -- PostDislikers__AspNetUsers;
+    PostDislikers -- PostDislikers__Posts;
+    Posts -- PostDislikers__Posts;
+    PostLikers -- PostLikers__AspNetUsers;
+    AspNetUsers -- PostLikers__AspNetUsers;
+    PostLikers -- PostLikers__Posts;
+    Posts -- PostLikers__Posts;
   }
 }
     

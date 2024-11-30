@@ -98,8 +98,16 @@ def get_s(result):
     def add_e():
         return "\n    ".join([f"{i};" for i in result.keys()])
 
+    def get_r():
+        return [
+            (table, c[1])
+            for table, (_, const) in result.items()
+            for c in const
+            if c[0] == "f"
+        ]
+
     def add_r():
-        return ""
+        return "\n".join([f"    {t1}__{t2};" for t1, t2 in get_r()])
 
     def add_c():
         r = []
@@ -107,12 +115,15 @@ def get_s(result):
             r.append(
                 f'  subgraph {k} {{{"".join([f"\n    {k} -- {k}__{i};" for i in v])}\n  }}'
             )
+        r.append(
+            f'  subgraph connections {{{"".join([f"\n    {t1} -- {t1}__{t2};\n    {t2} -- {t1}__{t2};" for t1, t2 in get_r()])}\n  }}'
+        )
         return "\n\n".join(r)
 
     r = f"""
 graph ER {{
   fontname = "Helvetica,Arial,sans-serif";
-  label = "Drug Database ERD";
+  label = "FBMINI ERD";
   fontsize = 24;
   layout = neato;
   overlap = "scale";
@@ -122,7 +133,7 @@ graph ER {{
   subgraph relationships {{
     node [shape = diamond; fillcolor = "#7a7af3"; style = "rounded,filled"; color = black;];
 
-    {add_r()}
+{add_r()}
   }}
 
   subgraph entities {{
