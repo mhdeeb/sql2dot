@@ -1,6 +1,8 @@
 import sqlparse
+from collections import Counter
 
-
+# Foo [peripheries = 2]
+# Foo -- Bar [color = "black:invis:black"]
 def extract_definitions(token_list):
     definitions = []
     tmp = []
@@ -96,18 +98,36 @@ def get_s(result):
         )
 
     def add_e():
-        return "\n    ".join([f"{i};" for i in result.keys()])
+        weak = " [peripheries = 2;]"
+        t = dict()
+        for k, (_, const) in result.items():
+            w = False
+            for c in const:
+                if c[0] == "f" and c[2]:
+                    t[k] = True
+                    w = True
+                    break
+            if not w:
+                t[k] = False
 
-    def get_r():
-        return [
+        return "\n    ".join([f"{i}{weak if t[i] else ''};" for i in result.keys()])
+
+    def get_names():
+        relationships = [
             (table, c[1])
             for table, (_, const) in result.items()
             for c in const
             if c[0] == "f"
         ]
+        res = []
+        counts = Counter(relationships)
+        for count in counts:
+            for i in range(counts[count]):
+                res.append(((count[0], count[1]), f"{count[0]}__{count[1]}{i if i > 0 else ""}"))
+        return res
 
     def add_r():
-        return "\n".join([f"    {t1}__{t2};" for t1, t2 in get_r()])
+        return "\n".join([f"    {n[1]};" for n in get_names()])
 
     def add_c():
         r = []
@@ -116,19 +136,18 @@ def get_s(result):
                 f'  subgraph {k} {{{"".join([f"\n    {k} -- {k}__{i};" for i in v])}\n  }}'
             )
         r.append(
-            f'  subgraph connections {{{"".join([f"\n    {t1} -- {t1}__{t2};\n    {t2} -- {t1}__{t2};" for t1, t2 in get_r()])}\n  }}'
+            f'  subgraph connections {{\n    edge [ len = 4; ];\n{"".join([f"\n    {t[0]} -- {n};\n    {t[1]} -- {n};" for t, n in get_names()])}\n  }}'
         )
         return "\n\n".join(r)
 
-    r = f"""
-graph ER {{
+    r = f"""graph ERD {{
   fontname = "Helvetica,Arial,sans-serif";
   label = "FBMINI ERD";
   fontsize = 24;
   layout = neato;
-  overlap = "scale";
+  scale = 1.5;
   node [fontname = "Helvetica,Arial,sans-serif";];
-  edge [fontname = "Helvetica,Arial,sans-serif";];
+  edge [fontname = "Helvetica,Arial,sans-serif"; len = 3;];
 
   subgraph relationships {{
     node [shape = diamond; fillcolor = "#7a7af3"; style = "rounded,filled"; color = black;];
@@ -155,5 +174,6 @@ graph ER {{
     return r
 
 
+v = get_s(get_attributes(get_data("test.sql")))
 with open("test.dot", "w") as f:
-    f.write(get_s(get_attributes(get_data("test.sql"))))
+    f.write(v)
