@@ -10,23 +10,23 @@ graph ERD {
   subgraph relationships {
     node [shape = diamond; fillcolor = "#7a7af3"; style = "rounded,filled"; color = black;];
 
-    AspNetRoleClaims__AspNetRoles;
-    AspNetUserClaims__AspNetUsers;
-    AspNetUserLogins__AspNetUsers;
-    AspNetUserRoles__AspNetRoles;
-    AspNetUserRoles__AspNetUsers;
-    AspNetUserTokens__AspNetUsers;
-    UserData__AspNetUsers;
+    AspNetRoleClaims__AspNetRoles [peripheries = 2;];
+    AspNetUserClaims__AspNetUsers [peripheries = 2;];
+    AspNetUserLogins__AspNetUsers [peripheries = 2;];
+    AspNetUserRoles__AspNetRoles [peripheries = 2;];
+    AspNetUserRoles__AspNetUsers [peripheries = 2;];
+    AspNetUserTokens__AspNetUsers [peripheries = 2;];
+    UserData__AspNetUsers [peripheries = 2;];
     UserData__Files;
-    UserData__Files1;
+    UserData__Files2;
     Posts__AspNetUsers;
     Posts__Files;
     Posts__Posts;
     Posts__UserData;
-    PostDislikers__AspNetUsers;
-    PostDislikers__Posts;
-    PostLikers__AspNetUsers;
-    PostLikers__Posts;
+    PostDislikers__AspNetUsers [peripheries = 2;];
+    PostDislikers__Posts [peripheries = 2;];
+    PostLikers__AspNetUsers [peripheries = 2;];
+    PostLikers__Posts [peripheries = 2;];
   }
 
   subgraph entities {
@@ -239,8 +239,8 @@ graph ERD {
     AspNetUsers -- UserData__AspNetUsers;
     UserData -- UserData__Files;
     Files -- UserData__Files;
-    UserData -- UserData__Files1;
-    Files -- UserData__Files1;
+    UserData -- UserData__Files2;
+    Files -- UserData__Files2;
     Posts -- Posts__AspNetUsers;
     AspNetUsers -- Posts__AspNetUsers;
     Posts -- Posts__Files;

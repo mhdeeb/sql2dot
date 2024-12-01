@@ -1,7 +1,6 @@
 import sqlparse
-from collections import Counter
 
-# Foo [peripheries = 2]
+
 # Foo -- Bar [color = "black:invis:black"]
 def extract_definitions(token_list):
     definitions = []
@@ -114,20 +113,23 @@ def get_s(result):
 
     def get_names():
         relationships = [
-            (table, c[1])
+            ((table, c[1]), c[2])
             for table, (_, const) in result.items()
             for c in const
             if c[0] == "f"
         ]
         res = []
-        counts = Counter(relationships)
-        for count in counts:
-            for i in range(counts[count]):
-                res.append(((count[0], count[1]), f"{count[0]}__{count[1]}{i if i > 0 else ""}"))
+        c = dict()
+        for relationship in relationships:
+            if relationship[0] in c:
+                c[relationship[0]] += 1
+            else:
+                c[relationship[0]] = 0
+            res.append((relationship, f"{relationship[0][0]}__{relationship[0][1]}{c[relationship[0]] + 1 if c[relationship[0]] > 0 else ""}"))
         return res
 
     def add_r():
-        return "\n".join([f"    {n[1]};" for n in get_names()])
+        return "\n".join([f"    {n[1]}{' [peripheries = 2;]' if n[0][1] else ""};" for n in get_names()])
 
     def add_c():
         r = []
@@ -136,7 +138,7 @@ def get_s(result):
                 f'  subgraph {k} {{{"".join([f"\n    {k} -- {k}__{i};" for i in v])}\n  }}'
             )
         r.append(
-            f'  subgraph connections {{\n    edge [ len = 4; ];\n{"".join([f"\n    {t[0]} -- {n};\n    {t[1]} -- {n};" for t, n in get_names()])}\n  }}'
+            f'  subgraph connections {{\n    edge [ len = 4; ];\n{"".join([f"\n    {t[0]} -- {n};\n    {t[1]} -- {n};" for (t, _), n in get_names()])}\n  }}'
         )
         return "\n\n".join(r)
 
