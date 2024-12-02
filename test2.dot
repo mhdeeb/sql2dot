@@ -230,42 +230,42 @@ graph ERD {
   }
 
   subgraph connections {
-    edge [ len = 4; ];
+    edge [ len = 4; fontsize=30; ];
 
-    AspNetRoleClaims -- AspNetRoleClaims__AspNetRoles;
-    AspNetRoles -- AspNetRoleClaims__AspNetRoles;
-    AspNetUserClaims -- AspNetUserClaims__AspNetUsers;
-    AspNetUsers -- AspNetUserClaims__AspNetUsers;
-    AspNetUserLogins -- AspNetUserLogins__AspNetUsers;
-    AspNetUsers -- AspNetUserLogins__AspNetUsers;
-    AspNetUserRoles -- AspNetUserRoles__AspNetUsers;
-    AspNetUsers -- AspNetUserRoles__AspNetUsers;
-    AspNetUserRoles -- AspNetUserRoles__AspNetRoles;
-    AspNetRoles -- AspNetUserRoles__AspNetRoles;
-    AspNetUserTokens -- AspNetUserTokens__AspNetUsers;
-    AspNetUsers -- AspNetUserTokens__AspNetUsers;
-    UserData -- UserData__AspNetUsers;
-    AspNetUsers -- UserData__AspNetUsers;
-    UserData -- UserData__Files;
-    Files -- UserData__Files;
-    UserData -- UserData__Files2;
-    Files -- UserData__Files2;
-    Posts -- Posts__AspNetUsers;
-    AspNetUsers -- Posts__AspNetUsers;
-    Posts -- Posts__Posts;
-    Posts -- Posts__Posts;
-    Posts -- Posts__Files;
-    Files -- Posts__Files;
-    Posts -- Posts__UserData;
-    UserData -- Posts__UserData;
-    PostDislikers -- PostDislikers__Posts;
-    Posts -- PostDislikers__Posts;
-    PostDislikers -- PostDislikers__AspNetUsers;
-    AspNetUsers -- PostDislikers__AspNetUsers;
-    PostLikers -- PostLikers__Posts;
-    Posts -- PostLikers__Posts;
-    PostLikers -- PostLikers__AspNetUsers;
-    AspNetUsers -- PostLikers__AspNetUsers;
+    AspNetRoleClaims -- AspNetRoleClaims__AspNetRoles [ headlabel = "N"; color = "black:invis:black"];
+    AspNetRoles -- AspNetRoleClaims__AspNetRoles [ headlabel = "1"; color = "black:invis:black"];
+    AspNetUserClaims -- AspNetUserClaims__AspNetUsers [ headlabel = "N"; color = "black:invis:black"];
+    AspNetUsers -- AspNetUserClaims__AspNetUsers [ headlabel = "1"; color = "black:invis:black"];
+    AspNetUserLogins -- AspNetUserLogins__AspNetUsers [ headlabel = "N"; color = "black:invis:black"];
+    AspNetUsers -- AspNetUserLogins__AspNetUsers [ headlabel = "1"; color = "black:invis:black"];
+    AspNetUserRoles -- AspNetUserRoles__AspNetUsers [ headlabel = "1"; color = "black:invis:black"];
+    AspNetUsers -- AspNetUserRoles__AspNetUsers [ headlabel = "1"; color = "black:invis:black"];
+    AspNetUserRoles -- AspNetUserRoles__AspNetRoles [ headlabel = "1"; color = "black:invis:black"];
+    AspNetRoles -- AspNetUserRoles__AspNetRoles [ headlabel = "1"; color = "black:invis:black"];
+    AspNetUserTokens -- AspNetUserTokens__AspNetUsers [ headlabel = "1"; color = "black:invis:black"];
+    AspNetUsers -- AspNetUserTokens__AspNetUsers [ headlabel = "1"; color = "black:invis:black"];
+    UserData -- UserData__AspNetUsers [ headlabel = "N"; color = "black:invis:black"];
+    AspNetUsers -- UserData__AspNetUsers [ headlabel = "1"; color = "black:invis:black"];
+    UserData -- UserData__Files [ headlabel = "N";];
+    Files -- UserData__Files [ headlabel = "1"; color = "black:invis:black"];
+    UserData -- UserData__Files2 [ headlabel = "N";];
+    Files -- UserData__Files2 [ headlabel = "1"; color = "black:invis:black"];
+    Posts -- Posts__AspNetUsers [ headlabel = "N"; color = "black:invis:black"];
+    AspNetUsers -- Posts__AspNetUsers [ headlabel = "1"; color = "black:invis:black"];
+    Posts -- Posts__Posts [ headlabel = "N";];
+    Posts -- Posts__Posts [ headlabel = "1"; color = "black:invis:black"];
+    Posts -- Posts__Files [ headlabel = "N";];
+    Files -- Posts__Files [ headlabel = "1"; color = "black:invis:black"];
+    Posts -- Posts__UserData [ headlabel = "N";];
+    UserData -- Posts__UserData [ headlabel = "1"; color = "black:invis:black"];
+    PostDislikers -- PostDislikers__Posts [ headlabel = "1"; color = "black:invis:black"];
+    Posts -- PostDislikers__Posts [ headlabel = "1"; color = "black:invis:black"];
+    PostDislikers -- PostDislikers__AspNetUsers [ headlabel = "1"; color = "black:invis:black"];
+    AspNetUsers -- PostDislikers__AspNetUsers [ headlabel = "1"; color = "black:invis:black"];
+    PostLikers -- PostLikers__Posts [ headlabel = "1"; color = "black:invis:black"];
+    Posts -- PostLikers__Posts [ headlabel = "1"; color = "black:invis:black"];
+    PostLikers -- PostLikers__AspNetUsers [ headlabel = "1"; color = "black:invis:black"];
+    AspNetUsers -- PostLikers__AspNetUsers [ headlabel = "1"; color = "black:invis:black"];
   }
 }
     
