@@ -391,9 +391,9 @@ def get_dot(tables: List[Table], relationships: List[RelationShip]):
     return r
 
 
-tables = parse_table_sql("test.sql")
+tables = parse_table_sql("test/test.sql")
 relationships = extract_relationships(tables)
 v = get_dot(tables, relationships)
 
-with open("test3.dot", "w") as f:
+with open("out/test.dot", "w") as f:
     f.write(v)

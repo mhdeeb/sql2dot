@@ -1,0 +1,60 @@
+graph ERD {
+  fontname = "Helvetica,Arial,sans-serif";
+  label = "FBMINI ERD";
+  fontsize = 24;
+  layout = neato;
+  scale = 2;
+  node [fontname = "Helvetica,Arial,sans-serif";];
+  edge [fontname = "Helvetica,Arial,sans-serif"; len = 3;];
+
+  subgraph relationships {
+    node [shape = diamond; fillcolor = "#7a7af3"; style = "rounded,filled"; color = black; width=1; height=1; ];
+
+    department__Persons;
+    employee__department [peripheries = 2;];
+    employee__department2;
+  }
+
+  subgraph entities {
+    node [shape = box; fillcolor = "#43ce43"; style = "filled"; color = black;];
+
+    department [peripheries = 2;];
+    department;
+    employee [peripheries = 2;];
+    employee;
+  }
+
+  subgraph attributes {
+    node [shape = ellipse; fillcolor = "#ff3d3d"; style = filled; color = black;];
+
+    department__id [label = <<U>id</U>>;];
+    department__PersonID [label = "PersonID";];
+
+    employee__id [label = <<U>id</U>>;];
+    employee__dep_id [label = <<U>dep_id</U>>;];
+    employee__managed_dep_id [label = "managed_dep_id";];
+  }
+
+  subgraph department {
+    department -- department__id;
+    department -- department__PersonID;
+  }
+
+  subgraph employee {
+    employee -- employee__id;
+    employee -- employee__dep_id;
+    employee -- employee__managed_dep_id;
+  }
+
+  subgraph connections {
+    edge [ len = 4; fontsize=30; ];
+
+    department -- department__Persons [ headlabel = "N";];
+    Persons -- department__Persons [ headlabel = "1"; color = "black:invis:black"];
+    employee -- employee__department [ headlabel = "1"; color = "black:invis:black"];
+    department -- employee__department [ headlabel = "1";];
+    employee -- employee__department2 [ headlabel = "N";];
+    department -- employee__department2 [ headlabel = "1";];
+  }
+}
+    
