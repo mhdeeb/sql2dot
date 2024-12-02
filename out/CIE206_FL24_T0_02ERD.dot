@@ -35,19 +35,14 @@ graph ERD {
     AspNetRoles;
     AspNetUsers;
     Files;
-    AspNetRoleClaims [peripheries = 2;];
     AspNetRoleClaims;
-    AspNetUserClaims [peripheries = 2;];
     AspNetUserClaims;
-    AspNetUserLogins [peripheries = 2;];
     AspNetUserLogins;
     AspNetUserRoles [peripheries = 2;];
     AspNetUserRoles;
     AspNetUserTokens [peripheries = 2;];
     AspNetUserTokens;
-    UserData [peripheries = 2;];
     UserData;
-    Posts [peripheries = 2;];
     Posts;
     PostDislikers [peripheries = 2;];
     PostDislikers;
@@ -238,11 +233,11 @@ graph ERD {
     AspNetUsers -- AspNetUserClaims__AspNetUsers [ headlabel = "1"; color = "black:invis:black"];
     AspNetUserLogins -- AspNetUserLogins__AspNetUsers [ headlabel = "N"; color = "black:invis:black"];
     AspNetUsers -- AspNetUserLogins__AspNetUsers [ headlabel = "1"; color = "black:invis:black"];
-    AspNetUserRoles -- AspNetUserRoles__AspNetUsers [ headlabel = "1"; color = "black:invis:black"];
+    AspNetUserRoles -- AspNetUserRoles__AspNetUsers [ headlabel = "N"; color = "black:invis:black"];
     AspNetUsers -- AspNetUserRoles__AspNetUsers [ headlabel = "1"; color = "black:invis:black"];
-    AspNetUserRoles -- AspNetUserRoles__AspNetRoles [ headlabel = "1"; color = "black:invis:black"];
+    AspNetUserRoles -- AspNetUserRoles__AspNetRoles [ headlabel = "N"; color = "black:invis:black"];
     AspNetRoles -- AspNetUserRoles__AspNetRoles [ headlabel = "1"; color = "black:invis:black"];
-    AspNetUserTokens -- AspNetUserTokens__AspNetUsers [ headlabel = "1"; color = "black:invis:black"];
+    AspNetUserTokens -- AspNetUserTokens__AspNetUsers [ headlabel = "N"; color = "black:invis:black"];
     AspNetUsers -- AspNetUserTokens__AspNetUsers [ headlabel = "1"; color = "black:invis:black"];
     UserData -- UserData__AspNetUsers [ headlabel = "N"; color = "black:invis:black"];
     AspNetUsers -- UserData__AspNetUsers [ headlabel = "1"; color = "black:invis:black"];
@@ -258,13 +253,13 @@ graph ERD {
     Files -- Posts__Files [ headlabel = "1";];
     Posts -- Posts__UserData [ headlabel = "N";];
     UserData -- Posts__UserData [ headlabel = "1";];
-    PostDislikers -- PostDislikers__Posts [ headlabel = "1"; color = "black:invis:black"];
+    PostDislikers -- PostDislikers__Posts [ headlabel = "N"; color = "black:invis:black"];
     Posts -- PostDislikers__Posts [ headlabel = "1"; color = "black:invis:black"];
-    PostDislikers -- PostDislikers__AspNetUsers [ headlabel = "1"; color = "black:invis:black"];
+    PostDislikers -- PostDislikers__AspNetUsers [ headlabel = "N"; color = "black:invis:black"];
     AspNetUsers -- PostDislikers__AspNetUsers [ headlabel = "1"; color = "black:invis:black"];
-    PostLikers -- PostLikers__Posts [ headlabel = "1"; color = "black:invis:black"];
+    PostLikers -- PostLikers__Posts [ headlabel = "N"; color = "black:invis:black"];
     Posts -- PostLikers__Posts [ headlabel = "1"; color = "black:invis:black"];
-    PostLikers -- PostLikers__AspNetUsers [ headlabel = "1"; color = "black:invis:black"];
+    PostLikers -- PostLikers__AspNetUsers [ headlabel = "N"; color = "black:invis:black"];
     AspNetUsers -- PostLikers__AspNetUsers [ headlabel = "1"; color = "black:invis:black"];
   }
 }

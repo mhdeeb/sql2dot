@@ -248,6 +248,39 @@ def parse_table_sql(sql: str) -> List[Table]:
     return tables
 
 
+def determine_cardinality(attribute: Attribute, table: Table) -> CARDINALITY:
+    """
+    Determine the cardinality of the relationship involving the given attribute.
+
+    Args:
+        attribute (Attribute): The attribute representing the foreign key.
+        table (Table): The table that contains the attribute.
+
+    Returns:
+        CARDINALITY: The cardinality of the relationship.
+    """
+    # Check if the attribute is part of a composite primary key
+    composite_primary_keys = [attr.name for attr in table.attributes if attr.is_primary]
+
+    if attribute.is_primary:
+        # If the attribute itself is part of the primary key
+        if len(composite_primary_keys) == 1:
+            # If it's the only primary key, it's a ONE_TO_ONE relationship
+            return CARDINALITY.ONE_TO_ONE
+        else:
+            # If it's part of a composite primary key, consider multi-column context
+            # For simplicity, we treat composite keys as MANY_TO_ONE for now
+            return CARDINALITY.MANY_TO_ONE
+
+    # Check if any attributes in the table are part of the primary key
+    if any(attr.is_primary for attr in table.attributes):
+        # If the table has a primary key, this is a MANY_TO_ONE relationship
+        return CARDINALITY.MANY_TO_ONE
+
+    # If no primary key is present, default to ONE_TO_MANY
+    return CARDINALITY.ONE_TO_MANY
+
+
 def extract_relationships(tables: List[Table]) -> List[RelationShip]:
     """
     Extracts relationships between tables based on their attributes.
@@ -288,12 +321,13 @@ def extract_relationships(tables: List[Table]) -> List[RelationShip]:
 
                 # Determine cardinality
                 # Use multi-column relationships and unique constraints if available
-                if attribute.is_primary:
-                    cardinality = CARDINALITY.ONE_TO_ONE
-                elif any(attr.is_primary for attr in table.attributes):
-                    cardinality = CARDINALITY.MANY_TO_ONE
-                else:
-                    cardinality = CARDINALITY.ONE_TO_MANY
+                # if attribute.is_primary:
+                #     cardinality = CARDINALITY.ONE_TO_ONE
+                # elif any(attr.is_primary for attr in table.attributes):
+                #     cardinality = CARDINALITY.MANY_TO_ONE
+                # else:
+                #     cardinality = CARDINALITY.ONE_TO_MANY
+                cardinality = determine_cardinality(attribute, table)
 
                 # Create the relationship
                 relationship = RelationShip(
@@ -329,7 +363,7 @@ def get_dot(tables: List[Table], relationships: List[RelationShip]):
         entities = []
         for table in tables:
             for relationship in relationships:
-                if table.name == relationship.left:
+                if table.name == relationship.left and relationship.is_identifying:
                     entities.append((table.name, True))
                     break
             entities.append((table.name, False))
@@ -395,5 +429,5 @@ tables = parse_table_sql("test/test.sql")
 relationships = extract_relationships(tables)
 v = get_dot(tables, relationships)
 
-with open("out/test.dot", "w") as f:
+with open("out/CIE206_FL24_T0_02ERD.dot", "w") as f:
     f.write(v)
