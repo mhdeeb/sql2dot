@@ -3,6 +3,7 @@ from enum import Enum
 import sqlparse
 from sqlparse.sql import Parenthesis, Identifier
 from typing import List, Optional
+from graphviz import Graph
 
 
 class EXISTENCE(Enum):
@@ -344,90 +345,109 @@ def extract_relationships(tables: List[Table]) -> List[RelationShip]:
     return relationships
 
 
-def get_dot(tables: List[Table], relationships: List[RelationShip]):
-    def add_a():
-        return "\n\n".join(
-            [
-                "\n".join(
-                    [
-                        f"    {table.name}__{attribute.name} [label = {f"<<U>{attribute.name}</U>>" if attribute.is_primary else f'"{attribute.name}"'};];"
-                        for attribute in table.attributes
-                    ]
-                )
-                for table in tables
-            ]
-        )
+def create_erd_graph(tables: List[Table], relationships: List[RelationShip]):
+    erd = Graph("ERD", engine="neato")
 
-    def add_e():
-        weak = " [peripheries = 2;]"
-        entities = []
+    erd.attr(
+        fontname="Helvetica,Arial,sans-serif",
+        fontsize="24",
+        scale="2",
+        peripheries="0",
+    )
+    erd.attr("node", fontname="Helvetica,Arial,sans-serif")
+    erd.attr("edge", fontname="Helvetica,Arial,sans-serif", len="3")
+    erd.attr("graph", bb="", margin="0", label="FBMINI ERD")
+
+    with erd.subgraph(name="cluster_relationships") as rel:
+        # rel.attr(label="Relationships")
+        rel.attr(label="")
+        rel.attr(
+            "node",
+            shape="diamond",
+            fillcolor="#7a7af3",
+            style="rounded,filled",
+            width="1",
+            height="1",
+        )
+        for relationship in relationships:
+            rel.node(
+                relationship.name,
+                peripheries="2" if relationship.is_identifying else None,
+            )
+
+    with erd.subgraph(name="cluster_entities") as ent:
+        # ent.attr(label="Entities")
+        ent.attr(label="")
+        ent.attr(
+            "node",
+            shape="box",
+            fillcolor="#43ce43",
+            style="filled",
+            color="black",
+        )
         for table in tables:
             for relationship in relationships:
                 if table.name == relationship.left and relationship.is_identifying:
-                    entities.append((table.name, True))
+                    ent.node(name=table.name, peripheries="2")
                     break
-            entities.append((table.name, False))
+            ent.node(name=table.name)
 
-        return "\n    ".join(
-            [f"{name}{weak if is_weak else ''};" for name, is_weak in entities]
+    with erd.subgraph(name="cluster_attributes") as attr:
+        # attr.attr(label="Attributes")
+        attr.attr(label="")
+        attr.attr(
+            "node",
+            shape="ellipse",
+            fillcolor="#ff3d3d",
+            style="filled",
+            color="black",
         )
-
-    def add_r():
-        return "\n".join(
-            [
-                f"    {relationship.name}{' [peripheries = 2;]' if relationship.is_identifying else ""};"
-                for relationship in relationships
-            ]
-        )
-
-    def add_c():
-        r = []
         for table in tables:
-            r.append(
-                f'  subgraph {table.name} {{{"".join([f"\n    {table.name} -- {table.name}__{attribute.name};" for attribute in table.attributes])}\n  }}'
+            for attribute in table.attributes:
+                attr.node(
+                    f"{table.name}__{attribute.name}",
+                    label=(
+                        f"<<U>{attribute.name}</U>>"
+                        if attribute.is_primary
+                        else attribute.name
+                    ),
+                )
+
+    for table in tables:
+        with erd.subgraph(name=f"cluster_{table.name}") as con:
+            # con.attr(label=table.name)
+            con.attr(label="")
+            for attribute in table.attributes:
+                con.edge(table.name, f"{table.name}__{attribute.name}")
+
+    with erd.subgraph(name="cluster_connections") as con:
+        # con.attr(label=table.name)
+        con.attr(label="")
+        con.attr("edge", len="4", fontsize="30")
+        for relationship in relationships:
+            con.edge(
+                relationship.left,
+                relationship.name,
+                headlabel=relationship.cardinality.value[0],
+                color="black:invis:black" if relationship.existence.value & 1 else None,
             )
-        r.append(
-            f'  subgraph connections {{\n    edge [ len = 4; fontsize=30; ];\n{"".join([f"\n    {relationship.left} -- {relationship.name} [ headlabel = \"{relationship.cardinality.value[0]}\";{' color = "black:invis:black"' if relationship.existence.value & 1 else ""}];\n    {relationship.right} -- {relationship.name} [ headlabel = \"{relationship.cardinality.value[1]}\";{' color = "black:invis:black"' if relationship.existence.value & 2 else ""}];" for relationship in relationships])}\n  }}'
-        )
-        return "\n\n".join(r)
+            con.edge(
+                relationship.right,
+                relationship.name,
+                headlabel=relationship.cardinality.value[1],
+                color="black:invis:black" if relationship.existence.value & 2 else None,
+            )
 
-    r = f"""graph ERD {{
-  fontname = "Helvetica,Arial,sans-serif";
-  label = "FBMINI ERD";
-  fontsize = 24;
-  layout = neato;
-  scale = 2;
-  node [fontname = "Helvetica,Arial,sans-serif";];
-  edge [fontname = "Helvetica,Arial,sans-serif"; len = 3;];
-
-  subgraph relationships {{
-    node [shape = diamond; fillcolor = "#7a7af3"; style = "rounded,filled"; color = black; width=1; height=1; ];
-
-{add_r()}
-  }}
-
-  subgraph entities {{
-    node [shape = box; fillcolor = "#43ce43"; style = "filled"; color = black;];
-
-    {add_e()}
-  }}
-
-  subgraph attributes {{
-    node [shape = ellipse; fillcolor = "#ff3d3d"; style = filled; color = black;];
-
-{add_a()}
-  }}
-
-{add_c()}
-}}
-    """
-
-    return r
+    return erd
 
 
 tables = parse_table_sql("test/test.sql")
 relationships = extract_relationships(tables)
-v = get_dot(tables, relationships)
 
-with open("out/CIE206_FL24_T0_02ERD.dot", "w") as f:
-    f.write(v)
+graph = create_erd_graph(tables, relationships)
+
+file_name = "out/CIE206_FL24_T0_02ERD"
+formats = ["png", "pdf", "svg"]
+
+for format in formats:
+    graph.render(file_name, format=format)

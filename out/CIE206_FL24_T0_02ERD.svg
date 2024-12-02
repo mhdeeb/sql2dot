@@ -10,6 +10,54 @@
 <title>ERD</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-6575.15 4837.12,-6575.15 4837.12,4 -4,4"/>
 <text text-anchor="middle" x="2416.56" y="-8.2" font-family="Helvetica,Arial,sans-serif" font-size="24.00">FBMINI ERD</text>
+<g id="clust1" class="cluster">
+<title>cluster_relationships</title>
+</g>
+<g id="clust2" class="cluster">
+<title>cluster_entities</title>
+</g>
+<g id="clust3" class="cluster">
+<title>cluster_attributes</title>
+</g>
+<g id="clust4" class="cluster">
+<title>cluster_AspNetRoles</title>
+</g>
+<g id="clust5" class="cluster">
+<title>cluster_AspNetUsers</title>
+</g>
+<g id="clust6" class="cluster">
+<title>cluster_Files</title>
+</g>
+<g id="clust7" class="cluster">
+<title>cluster_AspNetRoleClaims</title>
+</g>
+<g id="clust8" class="cluster">
+<title>cluster_AspNetUserClaims</title>
+</g>
+<g id="clust9" class="cluster">
+<title>cluster_AspNetUserLogins</title>
+</g>
+<g id="clust10" class="cluster">
+<title>cluster_AspNetUserRoles</title>
+</g>
+<g id="clust11" class="cluster">
+<title>cluster_AspNetUserTokens</title>
+</g>
+<g id="clust12" class="cluster">
+<title>cluster_UserData</title>
+</g>
+<g id="clust13" class="cluster">
+<title>cluster_Posts</title>
+</g>
+<g id="clust14" class="cluster">
+<title>cluster_PostDislikers</title>
+</g>
+<g id="clust15" class="cluster">
+<title>cluster_PostLikers</title>
+</g>
+<g id="clust16" class="cluster">
+<title>cluster_connections</title>
+</g>
 <!-- AspNetRoleClaims__AspNetRoles -->
 <g id="node1" class="node">
 <title>AspNetRoleClaims__AspNetRoles</title>

@@ -1,266 +1,247 @@
 graph ERD {
-  fontname = "Helvetica,Arial,sans-serif";
-  label = "FBMINI ERD";
-  fontsize = 24;
-  layout = neato;
-  scale = 2;
-  node [fontname = "Helvetica,Arial,sans-serif";];
-  edge [fontname = "Helvetica,Arial,sans-serif"; len = 3;];
-
-  subgraph relationships {
-    node [shape = diamond; fillcolor = "#7a7af3"; style = "rounded,filled"; color = black; width=1; height=1; ];
-
-    AspNetRoleClaims__AspNetRoles;
-    AspNetUserClaims__AspNetUsers;
-    AspNetUserLogins__AspNetUsers;
-    AspNetUserRoles__AspNetUsers [peripheries = 2;];
-    AspNetUserRoles__AspNetRoles [peripheries = 2;];
-    AspNetUserTokens__AspNetUsers [peripheries = 2;];
-    UserData__AspNetUsers;
-    UserData__Files;
-    UserData__Files2;
-    Posts__AspNetUsers;
-    Posts__Posts;
-    Posts__Files;
-    Posts__UserData;
-    PostDislikers__Posts [peripheries = 2;];
-    PostDislikers__AspNetUsers [peripheries = 2;];
-    PostLikers__Posts [peripheries = 2;];
-    PostLikers__AspNetUsers [peripheries = 2;];
-  }
-
-  subgraph entities {
-    node [shape = box; fillcolor = "#43ce43"; style = "filled"; color = black;];
-
-    AspNetRoles;
-    AspNetUsers;
-    Files;
-    AspNetRoleClaims;
-    AspNetUserClaims;
-    AspNetUserLogins;
-    AspNetUserRoles [peripheries = 2;];
-    AspNetUserRoles;
-    AspNetUserTokens [peripheries = 2;];
-    AspNetUserTokens;
-    UserData;
-    Posts;
-    PostDislikers [peripheries = 2;];
-    PostDislikers;
-    PostLikers [peripheries = 2;];
-    PostLikers;
-  }
-
-  subgraph attributes {
-    node [shape = ellipse; fillcolor = "#ff3d3d"; style = filled; color = black;];
-
-    AspNetRoles__Id [label = <<U>Id</U>>;];
-    AspNetRoles__Name [label = "Name";];
-    AspNetRoles__NormalizedName [label = "NormalizedName";];
-    AspNetRoles__ConcurrencyStamp [label = "ConcurrencyStamp";];
-
-    AspNetUsers__Id [label = <<U>Id</U>>;];
-    AspNetUsers__UserDataId [label = "UserDataId";];
-    AspNetUsers__UserName [label = "UserName";];
-    AspNetUsers__NormalizedUserName [label = "NormalizedUserName";];
-    AspNetUsers__Email [label = "Email";];
-    AspNetUsers__NormalizedEmail [label = "NormalizedEmail";];
-    AspNetUsers__EmailConfirmed [label = "EmailConfirmed";];
-    AspNetUsers__PasswordHash [label = "PasswordHash";];
-    AspNetUsers__SecurityStamp [label = "SecurityStamp";];
-    AspNetUsers__ConcurrencyStamp [label = "ConcurrencyStamp";];
-    AspNetUsers__PhoneNumber [label = "PhoneNumber";];
-    AspNetUsers__PhoneNumberConfirmed [label = "PhoneNumberConfirmed";];
-    AspNetUsers__TwoFactorEnabled [label = "TwoFactorEnabled";];
-    AspNetUsers__LockoutEnd [label = "LockoutEnd";];
-    AspNetUsers__LockoutEnabled [label = "LockoutEnabled";];
-    AspNetUsers__AccessFailedCount [label = "AccessFailedCount";];
-
-    Files__Id [label = <<U>Id</U>>;];
-    Files__FileName [label = "FileName";];
-    Files__ContentType [label = "ContentType";];
-    Files__Size [label = "Size";];
-    Files__FileData [label = "FileData";];
-    Files__UploadDate [label = "UploadDate";];
-
-    AspNetRoleClaims__Id [label = <<U>Id</U>>;];
-    AspNetRoleClaims__RoleId [label = "RoleId";];
-    AspNetRoleClaims__ClaimType [label = "ClaimType";];
-    AspNetRoleClaims__ClaimValue [label = "ClaimValue";];
-
-    AspNetUserClaims__Id [label = <<U>Id</U>>;];
-    AspNetUserClaims__UserId [label = "UserId";];
-    AspNetUserClaims__ClaimType [label = "ClaimType";];
-    AspNetUserClaims__ClaimValue [label = "ClaimValue";];
-
-    AspNetUserLogins__LoginProvider [label = <<U>LoginProvider</U>>;];
-    AspNetUserLogins__ProviderKey [label = <<U>ProviderKey</U>>;];
-    AspNetUserLogins__ProviderDisplayName [label = "ProviderDisplayName";];
-    AspNetUserLogins__UserId [label = "UserId";];
-
-    AspNetUserRoles__UserId [label = <<U>UserId</U>>;];
-    AspNetUserRoles__RoleId [label = <<U>RoleId</U>>;];
-
-    AspNetUserTokens__UserId [label = <<U>UserId</U>>;];
-    AspNetUserTokens__LoginProvider [label = <<U>LoginProvider</U>>;];
-    AspNetUserTokens__Name [label = <<U>Name</U>>;];
-    AspNetUserTokens__Value [label = "Value";];
-
-    UserData__Id [label = <<U>Id</U>>;];
-    UserData__Bio [label = "Bio";];
-    UserData__UserId [label = "UserId";];
-    UserData__PictureId [label = "PictureId";];
-    UserData__CoverId [label = "CoverId";];
-
-    Posts__Id [label = <<U>Id</U>>;];
-    Posts__Title [label = "Title";];
-    Posts__Content [label = "Content";];
-    Posts__Date [label = "Date";];
-    Posts__PosterId [label = "PosterId";];
-    Posts__ParentPostId [label = "ParentPostId";];
-    Posts__AttachmentId [label = "AttachmentId";];
-    Posts__UserDataId [label = "UserDataId";];
-
-    PostDislikers__DislikedPostsId [label = <<U>DislikedPostsId</U>>;];
-    PostDislikers__DislikersId [label = <<U>DislikersId</U>>;];
-
-    PostLikers__LikedPostsId [label = <<U>LikedPostsId</U>>;];
-    PostLikers__LikersId [label = <<U>LikersId</U>>;];
-  }
-
-  subgraph AspNetRoles {
-    AspNetRoles -- AspNetRoles__Id;
-    AspNetRoles -- AspNetRoles__Name;
-    AspNetRoles -- AspNetRoles__NormalizedName;
-    AspNetRoles -- AspNetRoles__ConcurrencyStamp;
-  }
-
-  subgraph AspNetUsers {
-    AspNetUsers -- AspNetUsers__Id;
-    AspNetUsers -- AspNetUsers__UserDataId;
-    AspNetUsers -- AspNetUsers__UserName;
-    AspNetUsers -- AspNetUsers__NormalizedUserName;
-    AspNetUsers -- AspNetUsers__Email;
-    AspNetUsers -- AspNetUsers__NormalizedEmail;
-    AspNetUsers -- AspNetUsers__EmailConfirmed;
-    AspNetUsers -- AspNetUsers__PasswordHash;
-    AspNetUsers -- AspNetUsers__SecurityStamp;
-    AspNetUsers -- AspNetUsers__ConcurrencyStamp;
-    AspNetUsers -- AspNetUsers__PhoneNumber;
-    AspNetUsers -- AspNetUsers__PhoneNumberConfirmed;
-    AspNetUsers -- AspNetUsers__TwoFactorEnabled;
-    AspNetUsers -- AspNetUsers__LockoutEnd;
-    AspNetUsers -- AspNetUsers__LockoutEnabled;
-    AspNetUsers -- AspNetUsers__AccessFailedCount;
-  }
-
-  subgraph Files {
-    Files -- Files__Id;
-    Files -- Files__FileName;
-    Files -- Files__ContentType;
-    Files -- Files__Size;
-    Files -- Files__FileData;
-    Files -- Files__UploadDate;
-  }
-
-  subgraph AspNetRoleClaims {
-    AspNetRoleClaims -- AspNetRoleClaims__Id;
-    AspNetRoleClaims -- AspNetRoleClaims__RoleId;
-    AspNetRoleClaims -- AspNetRoleClaims__ClaimType;
-    AspNetRoleClaims -- AspNetRoleClaims__ClaimValue;
-  }
-
-  subgraph AspNetUserClaims {
-    AspNetUserClaims -- AspNetUserClaims__Id;
-    AspNetUserClaims -- AspNetUserClaims__UserId;
-    AspNetUserClaims -- AspNetUserClaims__ClaimType;
-    AspNetUserClaims -- AspNetUserClaims__ClaimValue;
-  }
-
-  subgraph AspNetUserLogins {
-    AspNetUserLogins -- AspNetUserLogins__LoginProvider;
-    AspNetUserLogins -- AspNetUserLogins__ProviderKey;
-    AspNetUserLogins -- AspNetUserLogins__ProviderDisplayName;
-    AspNetUserLogins -- AspNetUserLogins__UserId;
-  }
-
-  subgraph AspNetUserRoles {
-    AspNetUserRoles -- AspNetUserRoles__UserId;
-    AspNetUserRoles -- AspNetUserRoles__RoleId;
-  }
-
-  subgraph AspNetUserTokens {
-    AspNetUserTokens -- AspNetUserTokens__UserId;
-    AspNetUserTokens -- AspNetUserTokens__LoginProvider;
-    AspNetUserTokens -- AspNetUserTokens__Name;
-    AspNetUserTokens -- AspNetUserTokens__Value;
-  }
-
-  subgraph UserData {
-    UserData -- UserData__Id;
-    UserData -- UserData__Bio;
-    UserData -- UserData__UserId;
-    UserData -- UserData__PictureId;
-    UserData -- UserData__CoverId;
-  }
-
-  subgraph Posts {
-    Posts -- Posts__Id;
-    Posts -- Posts__Title;
-    Posts -- Posts__Content;
-    Posts -- Posts__Date;
-    Posts -- Posts__PosterId;
-    Posts -- Posts__ParentPostId;
-    Posts -- Posts__AttachmentId;
-    Posts -- Posts__UserDataId;
-  }
-
-  subgraph PostDislikers {
-    PostDislikers -- PostDislikers__DislikedPostsId;
-    PostDislikers -- PostDislikers__DislikersId;
-  }
-
-  subgraph PostLikers {
-    PostLikers -- PostLikers__LikedPostsId;
-    PostLikers -- PostLikers__LikersId;
-  }
-
-  subgraph connections {
-    edge [ len = 4; fontsize=30; ];
-
-    AspNetRoleClaims -- AspNetRoleClaims__AspNetRoles [ headlabel = "N"; color = "black:invis:black"];
-    AspNetRoles -- AspNetRoleClaims__AspNetRoles [ headlabel = "1"; color = "black:invis:black"];
-    AspNetUserClaims -- AspNetUserClaims__AspNetUsers [ headlabel = "N"; color = "black:invis:black"];
-    AspNetUsers -- AspNetUserClaims__AspNetUsers [ headlabel = "1"; color = "black:invis:black"];
-    AspNetUserLogins -- AspNetUserLogins__AspNetUsers [ headlabel = "N"; color = "black:invis:black"];
-    AspNetUsers -- AspNetUserLogins__AspNetUsers [ headlabel = "1"; color = "black:invis:black"];
-    AspNetUserRoles -- AspNetUserRoles__AspNetUsers [ headlabel = "N"; color = "black:invis:black"];
-    AspNetUsers -- AspNetUserRoles__AspNetUsers [ headlabel = "1"; color = "black:invis:black"];
-    AspNetUserRoles -- AspNetUserRoles__AspNetRoles [ headlabel = "N"; color = "black:invis:black"];
-    AspNetRoles -- AspNetUserRoles__AspNetRoles [ headlabel = "1"; color = "black:invis:black"];
-    AspNetUserTokens -- AspNetUserTokens__AspNetUsers [ headlabel = "N"; color = "black:invis:black"];
-    AspNetUsers -- AspNetUserTokens__AspNetUsers [ headlabel = "1"; color = "black:invis:black"];
-    UserData -- UserData__AspNetUsers [ headlabel = "N"; color = "black:invis:black"];
-    AspNetUsers -- UserData__AspNetUsers [ headlabel = "1"; color = "black:invis:black"];
-    UserData -- UserData__Files [ headlabel = "N";];
-    Files -- UserData__Files [ headlabel = "1";];
-    UserData -- UserData__Files2 [ headlabel = "N";];
-    Files -- UserData__Files2 [ headlabel = "1";];
-    Posts -- Posts__AspNetUsers [ headlabel = "N"; color = "black:invis:black"];
-    AspNetUsers -- Posts__AspNetUsers [ headlabel = "1";];
-    Posts -- Posts__Posts [ headlabel = "N";];
-    Posts -- Posts__Posts [ headlabel = "1";];
-    Posts -- Posts__Files [ headlabel = "N";];
-    Files -- Posts__Files [ headlabel = "1";];
-    Posts -- Posts__UserData [ headlabel = "N";];
-    UserData -- Posts__UserData [ headlabel = "1";];
-    PostDislikers -- PostDislikers__Posts [ headlabel = "N"; color = "black:invis:black"];
-    Posts -- PostDislikers__Posts [ headlabel = "1"; color = "black:invis:black"];
-    PostDislikers -- PostDislikers__AspNetUsers [ headlabel = "N"; color = "black:invis:black"];
-    AspNetUsers -- PostDislikers__AspNetUsers [ headlabel = "1"; color = "black:invis:black"];
-    PostLikers -- PostLikers__Posts [ headlabel = "N"; color = "black:invis:black"];
-    Posts -- PostLikers__Posts [ headlabel = "1"; color = "black:invis:black"];
-    PostLikers -- PostLikers__AspNetUsers [ headlabel = "N"; color = "black:invis:black"];
-    AspNetUsers -- PostLikers__AspNetUsers [ headlabel = "1"; color = "black:invis:black"];
-  }
+	fontname="Helvetica,Arial,sans-serif" fontsize=24 peripheries=0 scale=2
+	node [fontname="Helvetica,Arial,sans-serif"]
+	edge [fontname="Helvetica,Arial,sans-serif" len=3]
+	graph [bb="" label="FBMINI ERD" margin=0]
+	subgraph cluster_relationships {
+		label=""
+		node [fillcolor="#7a7af3" height=1 shape=diamond style="rounded,filled" width=1]
+		AspNetRoleClaims__AspNetRoles
+		AspNetUserClaims__AspNetUsers
+		AspNetUserLogins__AspNetUsers
+		AspNetUserRoles__AspNetUsers [peripheries=2]
+		AspNetUserRoles__AspNetRoles [peripheries=2]
+		AspNetUserTokens__AspNetUsers [peripheries=2]
+		UserData__AspNetUsers
+		UserData__Files
+		UserData__Files2
+		Posts__AspNetUsers
+		Posts__Posts
+		Posts__Files
+		Posts__UserData
+		PostDislikers__Posts [peripheries=2]
+		PostDislikers__AspNetUsers [peripheries=2]
+		PostLikers__Posts [peripheries=2]
+		PostLikers__AspNetUsers [peripheries=2]
+	}
+	subgraph cluster_entities {
+		label=""
+		node [color=black fillcolor="#43ce43" shape=box style=filled]
+		AspNetRoles
+		AspNetUsers
+		Files
+		AspNetRoleClaims
+		AspNetUserClaims
+		AspNetUserLogins
+		AspNetUserRoles [peripheries=2]
+		AspNetUserRoles
+		AspNetUserTokens [peripheries=2]
+		AspNetUserTokens
+		UserData
+		Posts
+		PostDislikers [peripheries=2]
+		PostDislikers
+		PostLikers [peripheries=2]
+		PostLikers
+	}
+	subgraph cluster_attributes {
+		label=""
+		node [color=black fillcolor="#ff3d3d" shape=ellipse style=filled]
+		AspNetRoles__Id [label=<<U>Id</U>>]
+		AspNetRoles__Name [label=Name]
+		AspNetRoles__NormalizedName [label=NormalizedName]
+		AspNetRoles__ConcurrencyStamp [label=ConcurrencyStamp]
+		AspNetUsers__Id [label=<<U>Id</U>>]
+		AspNetUsers__UserDataId [label=UserDataId]
+		AspNetUsers__UserName [label=UserName]
+		AspNetUsers__NormalizedUserName [label=NormalizedUserName]
+		AspNetUsers__Email [label=Email]
+		AspNetUsers__NormalizedEmail [label=NormalizedEmail]
+		AspNetUsers__EmailConfirmed [label=EmailConfirmed]
+		AspNetUsers__PasswordHash [label=PasswordHash]
+		AspNetUsers__SecurityStamp [label=SecurityStamp]
+		AspNetUsers__ConcurrencyStamp [label=ConcurrencyStamp]
+		AspNetUsers__PhoneNumber [label=PhoneNumber]
+		AspNetUsers__PhoneNumberConfirmed [label=PhoneNumberConfirmed]
+		AspNetUsers__TwoFactorEnabled [label=TwoFactorEnabled]
+		AspNetUsers__LockoutEnd [label=LockoutEnd]
+		AspNetUsers__LockoutEnabled [label=LockoutEnabled]
+		AspNetUsers__AccessFailedCount [label=AccessFailedCount]
+		Files__Id [label=<<U>Id</U>>]
+		Files__FileName [label=FileName]
+		Files__ContentType [label=ContentType]
+		Files__Size [label=Size]
+		Files__FileData [label=FileData]
+		Files__UploadDate [label=UploadDate]
+		AspNetRoleClaims__Id [label=<<U>Id</U>>]
+		AspNetRoleClaims__RoleId [label=RoleId]
+		AspNetRoleClaims__ClaimType [label=ClaimType]
+		AspNetRoleClaims__ClaimValue [label=ClaimValue]
+		AspNetUserClaims__Id [label=<<U>Id</U>>]
+		AspNetUserClaims__UserId [label=UserId]
+		AspNetUserClaims__ClaimType [label=ClaimType]
+		AspNetUserClaims__ClaimValue [label=ClaimValue]
+		AspNetUserLogins__LoginProvider [label=<<U>LoginProvider</U>>]
+		AspNetUserLogins__ProviderKey [label=<<U>ProviderKey</U>>]
+		AspNetUserLogins__ProviderDisplayName [label=ProviderDisplayName]
+		AspNetUserLogins__UserId [label=UserId]
+		AspNetUserRoles__UserId [label=<<U>UserId</U>>]
+		AspNetUserRoles__RoleId [label=<<U>RoleId</U>>]
+		AspNetUserTokens__UserId [label=<<U>UserId</U>>]
+		AspNetUserTokens__LoginProvider [label=<<U>LoginProvider</U>>]
+		AspNetUserTokens__Name [label=<<U>Name</U>>]
+		AspNetUserTokens__Value [label=Value]
+		UserData__Id [label=<<U>Id</U>>]
+		UserData__Bio [label=Bio]
+		UserData__UserId [label=UserId]
+		UserData__PictureId [label=PictureId]
+		UserData__CoverId [label=CoverId]
+		Posts__Id [label=<<U>Id</U>>]
+		Posts__Title [label=Title]
+		Posts__Content [label=Content]
+		Posts__Date [label=Date]
+		Posts__PosterId [label=PosterId]
+		Posts__ParentPostId [label=ParentPostId]
+		Posts__AttachmentId [label=AttachmentId]
+		Posts__UserDataId [label=UserDataId]
+		PostDislikers__DislikedPostsId [label=<<U>DislikedPostsId</U>>]
+		PostDislikers__DislikersId [label=<<U>DislikersId</U>>]
+		PostLikers__LikedPostsId [label=<<U>LikedPostsId</U>>]
+		PostLikers__LikersId [label=<<U>LikersId</U>>]
+	}
+	subgraph cluster_AspNetRoles {
+		label=""
+		AspNetRoles -- AspNetRoles__Id
+		AspNetRoles -- AspNetRoles__Name
+		AspNetRoles -- AspNetRoles__NormalizedName
+		AspNetRoles -- AspNetRoles__ConcurrencyStamp
+	}
+	subgraph cluster_AspNetUsers {
+		label=""
+		AspNetUsers -- AspNetUsers__Id
+		AspNetUsers -- AspNetUsers__UserDataId
+		AspNetUsers -- AspNetUsers__UserName
+		AspNetUsers -- AspNetUsers__NormalizedUserName
+		AspNetUsers -- AspNetUsers__Email
+		AspNetUsers -- AspNetUsers__NormalizedEmail
+		AspNetUsers -- AspNetUsers__EmailConfirmed
+		AspNetUsers -- AspNetUsers__PasswordHash
+		AspNetUsers -- AspNetUsers__SecurityStamp
+		AspNetUsers -- AspNetUsers__ConcurrencyStamp
+		AspNetUsers -- AspNetUsers__PhoneNumber
+		AspNetUsers -- AspNetUsers__PhoneNumberConfirmed
+		AspNetUsers -- AspNetUsers__TwoFactorEnabled
+		AspNetUsers -- AspNetUsers__LockoutEnd
+		AspNetUsers -- AspNetUsers__LockoutEnabled
+		AspNetUsers -- AspNetUsers__AccessFailedCount
+	}
+	subgraph cluster_Files {
+		label=""
+		Files -- Files__Id
+		Files -- Files__FileName
+		Files -- Files__ContentType
+		Files -- Files__Size
+		Files -- Files__FileData
+		Files -- Files__UploadDate
+	}
+	subgraph cluster_AspNetRoleClaims {
+		label=""
+		AspNetRoleClaims -- AspNetRoleClaims__Id
+		AspNetRoleClaims -- AspNetRoleClaims__RoleId
+		AspNetRoleClaims -- AspNetRoleClaims__ClaimType
+		AspNetRoleClaims -- AspNetRoleClaims__ClaimValue
+	}
+	subgraph cluster_AspNetUserClaims {
+		label=""
+		AspNetUserClaims -- AspNetUserClaims__Id
+		AspNetUserClaims -- AspNetUserClaims__UserId
+		AspNetUserClaims -- AspNetUserClaims__ClaimType
+		AspNetUserClaims -- AspNetUserClaims__ClaimValue
+	}
+	subgraph cluster_AspNetUserLogins {
+		label=""
+		AspNetUserLogins -- AspNetUserLogins__LoginProvider
+		AspNetUserLogins -- AspNetUserLogins__ProviderKey
+		AspNetUserLogins -- AspNetUserLogins__ProviderDisplayName
+		AspNetUserLogins -- AspNetUserLogins__UserId
+	}
+	subgraph cluster_AspNetUserRoles {
+		label=""
+		AspNetUserRoles -- AspNetUserRoles__UserId
+		AspNetUserRoles -- AspNetUserRoles__RoleId
+	}
+	subgraph cluster_AspNetUserTokens {
+		label=""
+		AspNetUserTokens -- AspNetUserTokens__UserId
+		AspNetUserTokens -- AspNetUserTokens__LoginProvider
+		AspNetUserTokens -- AspNetUserTokens__Name
+		AspNetUserTokens -- AspNetUserTokens__Value
+	}
+	subgraph cluster_UserData {
+		label=""
+		UserData -- UserData__Id
+		UserData -- UserData__Bio
+		UserData -- UserData__UserId
+		UserData -- UserData__PictureId
+		UserData -- UserData__CoverId
+	}
+	subgraph cluster_Posts {
+		label=""
+		Posts -- Posts__Id
+		Posts -- Posts__Title
+		Posts -- Posts__Content
+		Posts -- Posts__Date
+		Posts -- Posts__PosterId
+		Posts -- Posts__ParentPostId
+		Posts -- Posts__AttachmentId
+		Posts -- Posts__UserDataId
+	}
+	subgraph cluster_PostDislikers {
+		label=""
+		PostDislikers -- PostDislikers__DislikedPostsId
+		PostDislikers -- PostDislikers__DislikersId
+	}
+	subgraph cluster_PostLikers {
+		label=""
+		PostLikers -- PostLikers__LikedPostsId
+		PostLikers -- PostLikers__LikersId
+	}
+	subgraph cluster_connections {
+		label=""
+		edge [fontsize=30 len=4]
+		AspNetRoleClaims -- AspNetRoleClaims__AspNetRoles [color="black:invis:black" headlabel=N]
+		AspNetRoles -- AspNetRoleClaims__AspNetRoles [color="black:invis:black" headlabel=1]
+		AspNetUserClaims -- AspNetUserClaims__AspNetUsers [color="black:invis:black" headlabel=N]
+		AspNetUsers -- AspNetUserClaims__AspNetUsers [color="black:invis:black" headlabel=1]
+		AspNetUserLogins -- AspNetUserLogins__AspNetUsers [color="black:invis:black" headlabel=N]
+		AspNetUsers -- AspNetUserLogins__AspNetUsers [color="black:invis:black" headlabel=1]
+		AspNetUserRoles -- AspNetUserRoles__AspNetUsers [color="black:invis:black" headlabel=N]
+		AspNetUsers -- AspNetUserRoles__AspNetUsers [color="black:invis:black" headlabel=1]
+		AspNetUserRoles -- AspNetUserRoles__AspNetRoles [color="black:invis:black" headlabel=N]
+		AspNetRoles -- AspNetUserRoles__AspNetRoles [color="black:invis:black" headlabel=1]
+		AspNetUserTokens -- AspNetUserTokens__AspNetUsers [color="black:invis:black" headlabel=N]
+		AspNetUsers -- AspNetUserTokens__AspNetUsers [color="black:invis:black" headlabel=1]
+		UserData -- UserData__AspNetUsers [color="black:invis:black" headlabel=N]
+		AspNetUsers -- UserData__AspNetUsers [color="black:invis:black" headlabel=1]
+		UserData -- UserData__Files [headlabel=N]
+		Files -- UserData__Files [headlabel=1]
+		UserData -- UserData__Files2 [headlabel=N]
+		Files -- UserData__Files2 [headlabel=1]
+		Posts -- Posts__AspNetUsers [color="black:invis:black" headlabel=N]
+		AspNetUsers -- Posts__AspNetUsers [headlabel=1]
+		Posts -- Posts__Posts [headlabel=N]
+		Posts -- Posts__Posts [headlabel=1]
+		Posts -- Posts__Files [headlabel=N]
+		Files -- Posts__Files [headlabel=1]
+		Posts -- Posts__UserData [headlabel=N]
+		UserData -- Posts__UserData [headlabel=1]
+		PostDislikers -- PostDislikers__Posts [color="black:invis:black" headlabel=N]
+		Posts -- PostDislikers__Posts [color="black:invis:black" headlabel=1]
+		PostDislikers -- PostDislikers__AspNetUsers [color="black:invis:black" headlabel=N]
+		AspNetUsers -- PostDislikers__AspNetUsers [color="black:invis:black" headlabel=1]
+		PostLikers -- PostLikers__Posts [color="black:invis:black" headlabel=N]
+		Posts -- PostLikers__Posts [color="black:invis:black" headlabel=1]
+		PostLikers -- PostLikers__AspNetUsers [color="black:invis:black" headlabel=N]
+		AspNetUsers -- PostLikers__AspNetUsers [color="black:invis:black" headlabel=1]
+	}
 }
-    
