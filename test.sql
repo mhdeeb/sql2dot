@@ -34,7 +34,7 @@ CREATE TABLE [Files] (
     [ContentType] nvarchar(100) NOT NULL,
     [Size] bigint NOT NULL,
     [FileData] varbinary(max) NOT NULL,
-    [UploadDate] datetime2 NOT NULL,
+    [UploadDate] datetime NOT NULL,
     CONSTRAINT [PK_Files] PRIMARY KEY ([Id])
 );
 GO

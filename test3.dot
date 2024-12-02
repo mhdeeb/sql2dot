@@ -3,20 +3,20 @@ graph ERD {
   label = "FBMINI ERD";
   fontsize = 24;
   layout = neato;
-  scale = 1.5;
+  scale = 2;
   node [fontname = "Helvetica,Arial,sans-serif";];
   edge [fontname = "Helvetica,Arial,sans-serif"; len = 3;];
 
   subgraph relationships {
-    node [shape = diamond; fillcolor = "#7a7af3"; style = "rounded,filled"; color = black;];
+    node [shape = diamond; fillcolor = "#7a7af3"; style = "rounded,filled"; color = black; width=1; height=1; ];
 
-    AspNetRoleClaims__AspNetRoles [peripheries = 2;];
-    AspNetUserClaims__AspNetUsers [peripheries = 2;];
-    AspNetUserLogins__AspNetUsers [peripheries = 2;];
+    AspNetRoleClaims__AspNetRoles;
+    AspNetUserClaims__AspNetUsers;
+    AspNetUserLogins__AspNetUsers;
     AspNetUserRoles__AspNetUsers [peripheries = 2;];
     AspNetUserRoles__AspNetRoles [peripheries = 2;];
     AspNetUserTokens__AspNetUsers [peripheries = 2;];
-    UserData__AspNetUsers [peripheries = 2;];
+    UserData__AspNetUsers;
     UserData__Files;
     UserData__Files2;
     Posts__AspNetUsers;
@@ -247,17 +247,17 @@ graph ERD {
     UserData -- UserData__AspNetUsers [ headlabel = "N"; color = "black:invis:black"];
     AspNetUsers -- UserData__AspNetUsers [ headlabel = "1"; color = "black:invis:black"];
     UserData -- UserData__Files [ headlabel = "N";];
-    Files -- UserData__Files [ headlabel = "1"; color = "black:invis:black"];
+    Files -- UserData__Files [ headlabel = "1";];
     UserData -- UserData__Files2 [ headlabel = "N";];
-    Files -- UserData__Files2 [ headlabel = "1"; color = "black:invis:black"];
+    Files -- UserData__Files2 [ headlabel = "1";];
     Posts -- Posts__AspNetUsers [ headlabel = "N"; color = "black:invis:black"];
-    AspNetUsers -- Posts__AspNetUsers [ headlabel = "1"; color = "black:invis:black"];
+    AspNetUsers -- Posts__AspNetUsers [ headlabel = "1";];
     Posts -- Posts__Posts [ headlabel = "N";];
-    Posts -- Posts__Posts [ headlabel = "1"; color = "black:invis:black"];
+    Posts -- Posts__Posts [ headlabel = "1";];
     Posts -- Posts__Files [ headlabel = "N";];
-    Files -- Posts__Files [ headlabel = "1"; color = "black:invis:black"];
+    Files -- Posts__Files [ headlabel = "1";];
     Posts -- Posts__UserData [ headlabel = "N";];
-    UserData -- Posts__UserData [ headlabel = "1"; color = "black:invis:black"];
+    UserData -- Posts__UserData [ headlabel = "1";];
     PostDislikers -- PostDislikers__Posts [ headlabel = "1"; color = "black:invis:black"];
     Posts -- PostDislikers__Posts [ headlabel = "1"; color = "black:invis:black"];
     PostDislikers -- PostDislikers__AspNetUsers [ headlabel = "1"; color = "black:invis:black"];
