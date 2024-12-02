@@ -439,15 +439,3 @@ def create_erd_graph(tables: List[Table], relationships: List[RelationShip]):
             )
 
     return erd
-
-
-tables = parse_table_sql("test/test.sql")
-relationships = extract_relationships(tables)
-
-graph = create_erd_graph(tables, relationships)
-
-file_name = "out/CIE206_FL24_T0_02ERD"
-formats = ["png", "pdf", "svg"]
-
-for format in formats:
-    graph.render(file_name, format=format)
