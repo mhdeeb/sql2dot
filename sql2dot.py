@@ -5,6 +5,8 @@ from sqlparse.sql import Parenthesis, Identifier
 from typing import List, Optional
 from graphviz import Graph
 
+NAME_BRACKETS = "[]`"
+
 
 class EXISTENCE(Enum):
     NON = 0
@@ -156,14 +158,14 @@ def get_columns(lines):
 def process_columns(columns):
     attributes = []
     for column in columns:
-        name = column[0].strip("[]")
+        name = column[0].strip(NAME_BRACKETS)
         is_primary = "PRIMARY KEY" in column
         is_nullable = not is_primary and "NOT NULL" not in column
         reference = None
         if "REFERENCES" in column:
             ref = column[column.index("REFERENCES") + 1 :]
-            ref_table = ref[0].strip("[]")
-            column = ref[2].strip("[]")
+            ref_table = ref[0].strip(NAME_BRACKETS)
+            column = ref[2].strip(NAME_BRACKETS)
             cascade = "ON DELETE CASCADE" in " ".join(ref).upper()
             reference = Reference(ref_table, column, cascade)
 
@@ -190,17 +192,17 @@ def process_constraints(constraints):
             is_primary = False
 
         if is_primary:
-            keys = tuple([i.strip("[]") for i in constraint[1::2]])
+            keys = tuple([i.strip(NAME_BRACKETS) for i in constraint[1::2]])
             result.append([keys])
         else:
             ref_loc = constraint.index("REFERENCES")
             ref1 = constraint[:ref_loc]
-            keys = tuple([i.strip("[]") for i in ref1[1::2]])
+            keys = tuple([i.strip(NAME_BRACKETS) for i in ref1[1::2]])
             ref2 = constraint[ref_loc + 1 :]
-            ref_table = ref2[0].strip("[]")
+            ref_table = ref2[0].strip(NAME_BRACKETS)
             ref_columns = tuple(
                 [
-                    i.strip("[]")
+                    i.strip(NAME_BRACKETS)
                     for i in ref2[ref2.index("(") + 1 : ref2.index(")")][::2]
                 ]
             )
@@ -218,7 +220,7 @@ def parse_table_sql(sql: str) -> List[Table]:
         for statment in statments:
             table = get_create_table(statment)
             if table:
-                table_name = table[0].strip("[]")
+                table_name = table[0].strip(NAME_BRACKETS)
                 columns, constraints = get_columns(table[1])
 
                 cols = process_columns(columns)
