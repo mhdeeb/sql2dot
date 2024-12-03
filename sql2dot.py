@@ -345,8 +345,13 @@ def extract_relationships(tables: List[Table]) -> List[RelationShip]:
     return relationships
 
 
-def create_erd_graph(tables: List[Table], relationships: List[RelationShip]):
-    erd = Graph("ERD", engine="neato")
+def create_erd_graph(
+    tables: List[Table],
+    relationships: List[RelationShip],
+    title: str = None,
+    engine: str = "neato",
+):
+    erd = Graph("ERD", engine=engine)
 
     erd.attr(
         fontname="Helvetica,Arial,sans-serif",
@@ -356,7 +361,7 @@ def create_erd_graph(tables: List[Table], relationships: List[RelationShip]):
     )
     erd.attr("node", fontname="Helvetica,Arial,sans-serif")
     erd.attr("edge", fontname="Helvetica,Arial,sans-serif", len="3")
-    erd.attr("graph", bb="", margin="0", label="FBMINI ERD")
+    erd.attr("graph", bb="", margin="0", label=title)
 
     with erd.subgraph(name="cluster_relationships") as rel:
         # rel.attr(label="Relationships")
