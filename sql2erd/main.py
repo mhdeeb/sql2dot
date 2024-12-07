@@ -1,5 +1,5 @@
-from sql2dot import parse_table_sql, extract_relationships, create_erd_graph
-from os import path
+from sql2erd.sql2erd import parse_table_sql, extract_relationships, create_erd_graph
+from os import makedirs, path
 from pathlib import Path
 
 import argparse
@@ -58,7 +58,7 @@ class CommandLine:
         return self.args.title
 
 
-if __name__ == "__main__":
+def main():
     app = CommandLine()
     source_file = app.source
     formats = ["png", "pdf", "svg"]
@@ -68,6 +68,8 @@ if __name__ == "__main__":
         output_file = app.output
     else:
         output_file = path.join("out", filename)
+
+    makedirs(path.dirname(output_file), exist_ok=True)
 
     tables = parse_table_sql(source_file)
     relationships = extract_relationships(tables)
