@@ -1,3 +1,32 @@
 [build-system]
 requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["sql2erd"]
+
+[project]
+version = "0.1.1"
+name = "sql2erd"
+description = "Transforms a .sql file of CREATE TABLE statments into an ERD using Graphviz"
+readme = "README.md"
+authors = [
+    {name = "mhdeeb", email = "s-mohamed.eldeeb@zewailcity.edu.eg"}
+]
+license = {file = "LICENSE"}
+dependencies = [
+    "graphviz",
+    "sqlparse",
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+requires-python = ">=3.9"
+
+[project.scripts]
+sql2erd = "sql2erd.main:main"
+
+[project.urls]
+Source = "https://github.com/mhdeeb/sql2erd"

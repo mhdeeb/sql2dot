@@ -1,3 +1,2 @@
 graphviz==0.20.3
-setuptools==75.6.0
 sqlparse==0.5.2

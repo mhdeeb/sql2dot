@@ -1,0 +1,13 @@
+LICENSE
+README.md
+pyproject.toml
+sql2erd/__init__.py
+sql2erd/__main__.py
+sql2erd/main.py
+sql2erd/sql2erd.py
+sql2erd.egg-info/PKG-INFO
+sql2erd.egg-info/SOURCES.txt
+sql2erd.egg-info/dependency_links.txt
+sql2erd.egg-info/entry_points.txt
+sql2erd.egg-info/requires.txt
+sql2erd.egg-info/top_level.txt

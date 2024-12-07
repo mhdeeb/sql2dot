@@ -1,0 +1,2 @@
+[console_scripts]
+sql2erd = sql2erd.main:main
