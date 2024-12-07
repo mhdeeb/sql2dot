@@ -360,6 +360,7 @@ def create_erd_graph(
         fontsize="24",
         scale="2",
         peripheries="0",
+        engine=engine
     )
     erd.attr("node", fontname="Helvetica,Arial,sans-serif")
     erd.attr("edge", fontname="Helvetica,Arial,sans-serif", len="3")
@@ -435,13 +436,13 @@ def create_erd_graph(
             con.edge(
                 relationship.left,
                 relationship.name,
-                headlabel=relationship.cardinality.value[0],
+                # headlabel=relationship.cardinality.value[0],
                 color="black:invis:black" if relationship.existence.value & 1 else None,
             )
             con.edge(
                 relationship.right,
                 relationship.name,
-                headlabel=relationship.cardinality.value[1],
+                # headlabel=relationship.cardinality.value[1],
                 color="black:invis:black" if relationship.existence.value & 2 else None,
             )
 

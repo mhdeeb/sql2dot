@@ -28,6 +28,12 @@ class CommandLine:
             help="Path to the output file (excluding extension).",
         )
         self.parser.add_argument(
+            "--title",
+            "-t",
+            required=False,
+            help="Title of the graph",
+        )
+        self.parser.add_argument(
             "--print",
             "-p",
             help="Print the dot file to the console.",
@@ -47,24 +53,32 @@ class CommandLine:
     def print_message(self):
         return self.args.print
 
+    @property
+    def title(self):
+        return self.args.title
+
 
 if __name__ == "__main__":
     app = CommandLine()
     source_file = app.source
     formats = ["png", "pdf", "svg"]
+    filename = Path(source_file).stem
 
     if app.output:
         output_file = app.output
     else:
-        output_file = path.join("out", Path(source_file).stem)
+        output_file = path.join("out", filename)
 
     tables = parse_table_sql(source_file)
     relationships = extract_relationships(tables)
 
-    graph = create_erd_graph(tables, relationships)
+    graph = create_erd_graph(tables, relationships, title=app.title)
+
+    with open(output_file + ".dot", 'w') as f:
+        f.write(graph.source)
 
     for format in formats:
-        graph.render(output_file + ".dot", outfile=output_file + "." + format)
+        graph.render(outfile=output_file + "." + format, cleanup=True)
 
     if app.print_message:
         with open(output_file + ".dot", "r") as f:
